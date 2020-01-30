@@ -13,7 +13,7 @@
             点击此处上传图片<br/>
             可以生成照片墙哦
         </label>
-        <input style="display:none" id="ipt" type="file" accept="image/*">
+        <input style="display:none" id="ipt" type="file" multiple accept="image/*">
     </div>
     <div class="" id="box">
         <ul class="min">
@@ -34,7 +34,52 @@
         </ul>
     </div>
 </body>
+<script src="./jquery.min.js"></script>
 <script>
-    
+    /* 根据分辨率缩放网页 */
+(function (doc, win) {
+    var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function recalc() {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+    };
+
+    $('html,body').trigger(resizeEvt);
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
+$("#ipt").on("change",function(e){
+    var imgList = this.files;
+    console.log(imgList,this,e);
+    if(imgList.length>0&&imgList.length<7){
+        var len = imgList.length;
+        $(".max li").each(function(i){
+            var $this = $(".min li").eq(i);
+            if(len<=i){
+                i %= len;
+            }
+            var imgUrl = getObjectURL(imgList[i]);
+            $(this).css("background-image",`url(${imgUrl})`);
+            $this.css("background-image",`url(${imgUrl})`);
+        })
+
+    }else{
+        alert("上传的图片数量必须为1-6张哦~")
+    }
+})
+function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) {
+    url = window.createObjectURL(file);
+    } else if (window.URL != undefined) {
+    url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) {
+    url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+}
 </script>
 </html>
