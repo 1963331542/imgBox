@@ -17,20 +17,20 @@
     </div>
     <div class="" id="box">
         <ul class="min">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li><img src="img/1.jpg" alt=""></li>
+            <li><img src="img/2.jpg" alt=""></li>
+            <li><img src="img/3.jpg" alt=""></li>
+            <li><img src="img/4.jpg" alt=""></li>
+            <li><img src="img/5.jpg" alt=""></li>
+            <li><img src="img/6.jpg" alt=""></li>
         </ul>
         <ul class="max">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li><img src="img/1.jpg" alt=""></li>
+            <li><img src="img/2.jpg" alt=""></li>
+            <li><img src="img/3.jpg" alt=""></li>
+            <li><img src="img/4.jpg" alt=""></li>
+            <li><img src="img/5.jpg" alt=""></li>
+            <li><img src="img/6.jpg" alt=""></li>
         </ul>
     </div>
 </body>
@@ -56,14 +56,14 @@ $("#ipt").on("change",function(e){
     console.log(imgList,this,e);
     if(imgList.length>0&&imgList.length<7){
         var len = imgList.length;
-        $(".max li").each(function(i){
-            var $this = $(".min li").eq(i);
+        $(".max li img").each(function(i){
+            var $this = $(".min li img").eq(i);
             if(len<=i){
                 i %= len;
             }
             var imgUrl = getObjectURL(imgList[i]);
-            $(this).css("background-image",`url(${imgUrl})`);
-            $this.css("background-image",`url(${imgUrl})`);
+            $(this).attr("src",imgUrl);
+            $this.attr("src",imgUrl);
         })
 
     }else{
